@@ -1,5 +1,7 @@
 Causal analysis, understanding the effect or impact that reviews have on revenue.
 
+Linear regression, we may transform the outcome to the log scale.
+
 Stated Factors
 Movie Genre
 Production company, 
@@ -10,8 +12,15 @@ Big-budget films & small-budget?
 
 Approach
 1. Build a non-linear, tree-based model (i.e., RF or GBDT) to predict Revenue based on all of the stated factors.
-2. For each subgroup you want to analyze, predict E[Rev|Good Review, Subgroup] and E[Rev|Bad Review, Subgroup] 
+2. For each subgroup we are to analyze, predict E[Rev|Good Review, Subgroup] and E[Rev|Bad Review, Subgroup] 
 3. Plot the above against each other for different subgroups. Those that are on the diagonal are those that are more immune to bad reviews. 
 
 Drop Column V in movie data with metacritic data.
 Drop column R
+Drop column F
+Drop column E
+Check duplicates using column for original movie title.
+How do you determine if data is enough data?
+Gross or Net revenue
+International or Domestic revenue we are assuming worldwide data
+
