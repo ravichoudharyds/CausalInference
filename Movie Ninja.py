@@ -14,10 +14,6 @@ metadata=pd.read_csv("movie_metadata_with_score_metacritic.csv", index_col="Unna
 metadata=metadata.loc[~metadata["metacritic_metascore"].isna()]
 metadata=metadata.drop(["homepage","keywords","overview","status","tagline","imdb_metascore"],1)
 metadata=metadata.drop_duplicates()
-metadata.at[4267,"title"]="Batman: The Movie"
-metadata.at[4267,"original_title"]="Batman: The Movie"
-metadata.at[4267,"metacritic_metascore"]=71.0
-metadata.drop([3647],inplace=True)
 metadata["release_year"]=metadata.release_date.str[0:4].astype(int)
 
 
