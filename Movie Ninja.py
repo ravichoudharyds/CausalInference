@@ -131,8 +131,11 @@ for i in range(len(critic_revenue)):
 critic_revenue.drop(columns=independent_list,inplace=True)
 
 # Need to fill the NaN/Missing values with 0 for dummy variable
-Production = [column for column in critic_revenue.columns if column not in production_house and column not in keep_list]
-critic_revenue.fillna(inplace=True,axis=)
+Genres = ['Action','Adventure', 'Fantasy', 'Science Fiction', 'Crime', 'Drama', 'Thriller', 'Animation', 'Family',
+               'Western', 'Comedy', 'Romance', 'Horror', 'Mystery', 'History', 'War', 'Music', 'Documentary',
+               'Foreign', 'TV Movie']
+critic_revenue[production_house].fillna(0,inplace=True)
+critic_revenue[Genres].fillna(0,inplace=True)
 
 # Create datetime feature to create a feature indicating release on a US Federal Holiday or on the weekend
 critic_revenue['release_datetime'] = pd.to_datetime(critic_revenue['release_date'],format='%Y-%m-%d')
