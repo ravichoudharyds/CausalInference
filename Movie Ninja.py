@@ -54,7 +54,7 @@ for movie_num in range(len(critic_revenue)):
 for movie_num in range(len(critic_revenue)):
     flat_json=json.loads(critic_revenue.loc[movie_num,'genres'])
     for index_json in range(len(flat_json)):
-        critic_revenue.loc[i,flat_json[index_json]['name']] = 1
+        critic_revenue.loc[movie_num,flat_json[index_json]['name']] = 1
 
 # Goal: To reduce the number of production companies from the columns
 # Get Description of data
