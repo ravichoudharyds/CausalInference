@@ -134,10 +134,11 @@ critic_revenue.drop(columns=independent_list,inplace=True)
 Genres = ['Action','Adventure', 'Fantasy', 'Science Fiction', 'Crime', 'Drama', 'Thriller', 'Animation', 'Family',
                'Western', 'Comedy', 'Romance', 'Horror', 'Mystery', 'History', 'War', 'Music', 'Documentary',
                'Foreign', 'TV Movie']
-critic_revenue[production_house].fillna(0,inplace=True)
-critic_revenue[Genres].fillna(0,inplace=True)
+prod_comp_columns = [column for column in critic_revenue.columns if column in production_house ]
+critic_revenue[prod_comp_columns].fillna(0,inplace=True,axis=1)
+critic_revenue[Genres].fillna(0,inplace=True,axis=1)
 
-# Create datetime feature to create a feature indicating release on a US Federal Holiday or on the weekend
+# Create features indicating release on a US Federal Holiday or on the weekend, also a feature indicate the day of week of release
 critic_revenue['release_datetime'] = pd.to_datetime(critic_revenue['release_date'],format='%Y-%m-%d')
 holiday_list = calendar().holidays(start=critic_revenue['release_datetime'].min(),end=critic_revenue['release_datetime'].max())
 
