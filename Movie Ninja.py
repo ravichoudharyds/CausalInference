@@ -9,27 +9,26 @@ from pandas.tseries.holiday import USFederalHolidayCalendar as calendar
 
 metadata=pd.read_csv("movie_metadata_with_score_metacritic.csv", index_col="Unnamed: 0") #reading in metacritic dataset
 metadata=metadata.loc[~metadata["metacritic_metascore"].isna()] #removing rows with no metacritic data
-metadata=metadata.drop(["homepage","keywords","overview","status","tagline","imdb_metascore"],1) #dropping unnecessary features
+metadata=metadata.drop(["homepage","keywords","overview","status","tagline","imdb_metascore","budget","revenue"],1) #dropping unnecessary features
 metadata=metadata.drop_duplicates() #dropping duplicates
 metadata["release_year"]=metadata.release_date.str[0:4].astype(int) #creating new column with year for comparison
 
 
-rev_data=pd.read_csv("Revenue.csv") #reading in revenue data
-
-#Adjusting units
-rev_data["Budget"]=rev_data["Budget($M)"]*1000000
-rev_data["Worldwide Gross"]=rev_data["Worldwide Gross($M)"]*1000000 
-rev_data["Domestic Gross"]=rev_data["Domestic Gross($M)"]*1000000
-rev_data=rev_data.drop(["Budget($M)","Domestic Gross($M)","Worldwide Gross($M)"],1)
-
-rev_data=rev_data.rename(columns={"Movie":"title"})#renaming column to match metadata
-rev_data=rev_data.drop_duplicates()#dropping duplicates
+num_data=pd.read_csv("the_numbers_budget.csv") #reading in revenue data
+num_data=num_data.rename(columns={"Movie":"title"}) #renaming column to match metadata
+num_data["num_year"]=num_data["Release Date"].str[-4:].astype(int)
+num_data=num_data.drop_duplicates()#dropping duplicates
 
 
 critic_revenue=metadata.merge(rev_data,on="title") #merging datasets
 critic_revenue=critic_revenue.drop_duplicates() #dropping duplicates
-critic_revenue=critic_revenue.loc[(critic_revenue["Worldwide Gross"]!=0) | (critic_revenue["revenue"]!=0)] #removing rows with no revenue data
-critic_revenue=critic_revenue.loc[(np.abs(critic_revenue.release_year-critic_revenue.Year)<=5)] #removing rows where the years don't match, as this indicates different movies
+critic_revenue=critic_revenue.loc[(critic_revenue["Worldwide Gross"].asint()!=0))] #removing rows with no revenue data
+critic_revenue=critic_revenue.loc[(np.abs(critic_revenue.release_year-critic_revenue.Year)<5)] #removing rows where the years don't match, as this indicates different movies
+
+#removing rows with duplicated titles
+critic_revenue.drop([1720],inplace=True)
+critic_revenue.drop([1963],inplace=True)
+critic_revenue.drop([3157],inplace=True)
 
 #Normalizing by the median for merged data set
 
