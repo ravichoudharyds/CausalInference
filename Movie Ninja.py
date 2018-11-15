@@ -20,10 +20,10 @@ num_data["num_year"]=num_data["Release Date"].str[-4:].astype(int)
 num_data=num_data.drop_duplicates()#dropping duplicates
 
 
-critic_revenue=metadata.merge(rev_data,on="title") #merging datasets
+critic_revenue=metadata.merge(num_data,on="title") #merging datasets
 critic_revenue=critic_revenue.drop_duplicates() #dropping duplicates
-critic_revenue=critic_revenue.loc[(critic_revenue["Worldwide Gross"].asint()!=0))] #removing rows with no revenue data
-critic_revenue=critic_revenue.loc[(np.abs(critic_revenue.release_year-critic_revenue.Year)<5)] #removing rows where the years don't match, as this indicates different movies
+critic_revenue=critic_revenue.loc[(critic_revenue["Worldwide Gross"]!=0)] #removing rows with no revenue data
+critic_revenue=critic_revenue.loc[(np.abs(critic_revenue.release_year-critic_revenue.num_year)<5)] #removing rows where the years don't match, as this indicates different movies
 
 #removing rows with duplicated titles
 critic_revenue.drop([1720],inplace=True)
