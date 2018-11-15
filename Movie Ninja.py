@@ -25,20 +25,13 @@ critic_revenue=critic_revenue.drop_duplicates() #dropping duplicates
 critic_revenue=critic_revenue.loc[(critic_revenue["Worldwide Gross"]!=0)] #removing rows with no revenue data
 critic_revenue=critic_revenue.loc[(np.abs(critic_revenue.release_year-critic_revenue.num_year)<5)] #removing rows where the years don't match, as this indicates different movies
 
-#removing rows with duplicated titles
-critic_revenue.drop([1720],inplace=True)
-critic_revenue.drop([1963],inplace=True)
-critic_revenue.drop([3157],inplace=True)
-
 #Normalizing by the median for merged data set
 
-critic_revenue["budget"]=(metadata["budget"]-metadata["budget"].median())/metadata["budget"].std()
-critic_revenue["Worldwide Gross"]=(rev_data["Worldwide Gross"]-rev_data["Worldwide Gross"].median())/rev_data["Worldwide Gross"].std()
-
-critic_revenue["Domestic Gross"]=(rev_data["Domestic Gross"]-rev_data["Domestic Gross"].median())/rev_data["Domestic Gross"].std()
-critic_revenue["popularity"]=(metadata["popularity"]-metadata["popularity"].median())/metadata["popularity"].std()
-critic_revenue["revenue"]=(metadata["revenue"]-metadata["revenue"].median())/metadata["revenue"].std()
-critic_revenue["vote_count"]=(metadata["vote_count"]-metadata["vote_count"].median())/metadata["vote_count"].std()
+critic_revenue["Production Budget"]=(critic_revenue["Production Budget"]-critic_revenue["Production Budget"].median())/critic_revenue["Production Budget"].std()
+critic_revenue["Worldwide Gross"]=(critic_revenue["Worldwide Gross"]-critic_revenue["Worldwide Gross"].median())/critic_revenue["Worldwide Gross"].std()
+critic_revenue["Domestic Gross"]=(critic_revenue["Domestic Gross"]-critic_revenue["Domestic Gross"].median())/critic_revenue["Domestic Gross"].std()
+critic_revenue["popularity"]=(critic_revenue["popularity"]-critic_revenue["popularity"].median())/critic_revenue["popularity"].std()
+critic_revenue["vote_count"]=(critic_revenue["vote_count"]-critic_revenue["vote_count"].median())/critic_revenue["vote_count"].std()
 
 # Reindex since the dataset has been subset many times
 critic_revenue.index=range(len(critic_revenue))
