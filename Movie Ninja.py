@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 import json
 from pandas.tseries.holiday import USFederalHolidayCalendar as calendar
+from sklearn.linear_model import LinearRegression
+from scipy.stats import pearsonr
 
 
 metadata=pd.read_csv("movie_metadata_with_score_metacritic.csv", index_col="Unnamed: 0") #reading in metacritic dataset
@@ -148,6 +150,10 @@ for i in range(len(critic_revenue)):
     else:
         critic_revenue.loc[i,'release_date_weekend']=0
 
+#Pearson Correlation
+print("Pearson Correlation: ",pearsonr(critic_revenue["metacritic_metascore"],critic_revenue["Worldwide Gross"]))
+print("Pearson Correlation (log): ",pearsonr(critic_revenue["metacritic_metascore"],critic_revenue["log Worldwide Gross"]))
+        
 #Random Forest Regressor
 critic_revenue=critic_revenue.drop(["release_datetime", "production_countries","genres","production_companies"], 1)
 critic_revenue = pd.get_dummies(critic_revenue)
@@ -187,3 +193,49 @@ predictions = rf.predict(test_features)
 errors = abs(predictions - test_labels)
 # Print out the mean absolute error (mae)
 print('Mean Absolute Error:', round(np.mean(errors), 2), 'degrees.')
+
+#Linear Regression for Genre (note: still need to integrate with existing code
+
+#Entire dataset, metacritic metascore only
+X=np.array(critic_revenue["metacritic_metascore"]).reshape(-1,1)
+y=np.array(critic_revenue["log Worldwide Gross"]).reshape(-1,1)
+critic_only=LinearRegression().fit(X,y)
+print("Coefficient: ",critic_only.coef_)
+print("Intercept: ",critic_only.intercept_ )
+
+#plotting datapoints and line for regression
+plt.scatter(X,y,marker=".")
+plt.plot(X,critic_only.coef_*X+critic_only.intercept_,"r")
+plt.show()
+
+#Entire dataset, genre data only
+GenresX=[Genres+["metacritic_metascore"]][0]
+XX=critic_revenue[GenresX]
+genre_reg=LinearRegression().fit(XX,y)
+print("Coefficient: ",genre_reg.coef_)
+print("Intercept: ",genre_reg.intercept_ )
+
+#Repeating, but with different training and testing
+from sklearn.model_selection import train_test_split
+
+train_features, test_features, train_labels, test_labels = train_test_split(critic_revenue.drop("log Worldwide Gross",1), critic_revenue["log Worldwide Gross"], test_size = 0.25, random_state = 42)
+
+print('Training Features Shape:', train_features.shape)
+print('Training Labels Shape:', train_labels.shape)
+print('Testing Features Shape:', test_features.shape)
+print('Testing Labels Shape:', test_labels.shape)
+
+metacritic_trainer=LinearRegression().fit(np.array(train_features["metacritic_metascore"]).reshape(-1, 1),train_labels)
+print("Coefficient: ",metacritic_trainer.coef_)
+print("Intercept: ",metacritic_trainer.intercept_ )
+metacritic_predict=metacritic_trainer.predict(np.array(test_features["metacritic_metascore"]).reshape(-1,1))
+
+plt.scatter(test_features["metacritic_metascore"],test_labels,marker=".")
+plt.plot(test_features["metacritic_metascore"],metacritic_trainer.coef_*test_features["metacritic_metascore"]+metacritic_trainer.intercept_,"r")
+plt.plot(test_features["metacritic_metascore"],metacritic_predict,"g")
+plt.show()
+
+genres_trainer=LinearRegression().fit(np.array(train_features[GenresX]),train_labels)
+print("Coefficient: ",genres_trainer.coef_)
+print("Intercept: ",genres_trainer.intercept_ )
+genres_predict=genres_trainer.predict(np.array(test_features[GenresX]))
