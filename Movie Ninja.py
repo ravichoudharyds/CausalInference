@@ -32,6 +32,8 @@ critic_revenue["Worldwide Gross"]=(critic_revenue["Worldwide Gross"]-critic_reve
 critic_revenue["Domestic Gross"]=(critic_revenue["Domestic Gross"]-critic_revenue["Domestic Gross"].median())/critic_revenue["Domestic Gross"].std()
 critic_revenue["popularity"]=(critic_revenue["popularity"]-critic_revenue["popularity"].median())/critic_revenue["popularity"].std()
 critic_revenue["vote_count"]=(critic_revenue["vote_count"]-critic_revenue["vote_count"].median())/critic_revenue["vote_count"].std()
+critic_revenue["metacritic_metascore"]=(critic_revenue["metacritic_metascore"]-critic_revenue["metacritic_metascore"].median())/critic_revenue["metacritic_metascore"].std()
+critic_revenue["runtime"]=(critic_revenue["runtime"]-critic_revenue["runtime"].median())/critic_revenue["runtime"].std()
 
 # Reindex since the dataset has been subset many times
 critic_revenue.index=range(len(critic_revenue))
