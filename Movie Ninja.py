@@ -239,3 +239,16 @@ genres_trainer=LinearRegression().fit(np.array(train_features[GenresX]),train_la
 print("Coefficient: ",genres_trainer.coef_)
 print("Intercept: ",genres_trainer.intercept_ )
 genres_predict=genres_trainer.predict(np.array(test_features[GenresX]))
+
+#For loop to find relationship betwen metacritic score and revenue for each genre
+for genre in Genres:
+    genre_data=critic_revenue.loc[critic_revenue[genre]==1]
+    print(genre, " ",len(genre_data))
+    X=np.array(genre_data["metacritic_metascore"]).reshape(-1,1)
+    y=np.array(genre_data["log Worldwide Gross"]).reshape(-1,1)
+    genre_lr=LinearRegression().fit(X,y)
+    print("Coefficient: ",genre_lr.coef_)
+    print("Intercept: ",genre_lr.intercept_ )
+    plt.scatter(X,y,marker=".")
+    plt.plot(X,genre_lr.coef_*X+genre_lr.intercept_)
+plt.show()
