@@ -65,13 +65,13 @@ movie_count=[]
 # Variable to store names of Production Companies
 production_house=[]
 
-#These are the columsn we want to keep
-keep_list=['Unnamed: 0','Unnamed: 0.1','budget','id','genres','homepage','overview','popularity','revenue',
+#These are the columns we want to keep
+keep_list=['Unnamed: 0','Unnamed: 0.1','id','genres','popularity',
                'runtime','vote_average','vote_count','metacritic_metascore','metacritic_metascore1','Action',
                'Adventure', 'Fantasy', 'Science Fiction', 'Crime', 'Drama', 'Thriller', 'Animation', 'Family',
                'Western', 'Comedy', 'Romance', 'Horror', 'Mystery', 'History', 'War', 'Music', 'Documentary',
                'Foreign', 'TV Movie','production_companies','production_countries','release_date','spoken_languages',
-              'status','tagline','title','original_title','keywords','original_language']
+              'title','original_title','original_language','release_year','Release Date','Production Budget','Domestic Gross','Worldwide Gross','num_year','log Worldwide Gross']
 
 # Movie Count for each production company is maintained
 for column in data_descr.columns:
@@ -158,17 +158,17 @@ print("Pearson Correlation (log): ",pearsonr(critic_revenue["metacritic_metascor
 critic_revenue=critic_revenue.drop(["release_datetime", "production_countries","genres","production_companies"], 1)
 critic_revenue = pd.get_dummies(critic_revenue)
 critic_revenue= critic_revenue.fillna(0)
-critic_revenue['budget']=critic_revenue['budget'].astype('float32', copy=False)
+critic_revenue['Production Budget']=critic_revenue['Production Budget'].astype('float32', copy=False)
 critic_revenue['popularity']=critic_revenue['popularity'].astype('float32', copy=False)
-critic_revenue['revenue']=critic_revenue['revenue'].astype('float32', copy=False)
+critic_revenue['Worldwide Gross']=critic_revenue['Worldwide Gross'].astype('float32', copy=False)
 critic_revenue['vote_average']=critic_revenue['vote_average'].astype('float32', copy=False)
 critic_revenue['vote_count']=critic_revenue['vote_count'].astype('float32', copy=False)
 critic_revenue['metacritic_metascore']=critic_revenue['metacritic_metascore'].astype('float32', copy=False)
-labels = np.array(critic_revenue['revenue'])
+labels = np.array(critic_revenue['Worldwide Gross'])
 
 # Remove the labels from the features
 # axis 1 refers to the columns
-critic_revenue= critic_revenue.drop('revenue', axis = 1)
+critic_revenue= critic_revenue.drop('Worldwide Gross', axis = 1)
 
 
 # Convert to numpy array
@@ -194,7 +194,8 @@ errors = abs(predictions - test_labels)
 # Print out the mean absolute error (mae)
 print('Mean Absolute Error:', round(np.mean(errors), 2), 'degrees.')
 
-#Linear Regression for Genre (note: still need to integrate with existing code
+
+#Linear Regression for Genre (note: still need to integrate with existing code as far as train/test split
 
 #Entire dataset, metacritic metascore only
 X=np.array(critic_revenue["metacritic_metascore"]).reshape(-1,1)
