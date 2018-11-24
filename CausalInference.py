@@ -74,7 +74,7 @@ model_cols = [column for column in critic_cast_revenue.columns if column not in 
 for column in model_cols:
     critic_cast_revenue[column].fillna(0,inplace=True)
 
-# critic_revenue['High Production Budget'] = [1 if critic_revenue.loc[i,'Production Budget'] > 0 else 0 for i in range(len(critic_revenue)) ]
+# The positive, mixed and negative review tags are based on the metascore description given by metacritic
 critic_cast_revenue['Good Critic Review'] = [1 if critic_cast_revenue.loc[i,'metacritic_metascore'] > 60 else 0 if critic_cast_revenue.loc[i,'metacritic_metascore'] > 40 else -1 for i in range(len(critic_cast_revenue)) ]
 
 model_cols.append('Production Budget')
