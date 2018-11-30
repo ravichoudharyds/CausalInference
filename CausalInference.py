@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from scipy import stats
 import json
 
 # Get the top 4 actors/cast of the movie and the writer and director of the movie
@@ -66,7 +67,7 @@ for movie_num in range(len(critic_revenue)):
 
 genres_list = [column for column in critic_revenue.columns if column not in keep_list and column not in prod_company_list]        
 
-critic_cast_revenue=critic_revenue.merge(credits['cast','crew'],left_on ="id",right_on="movie_id",how="left")
+critic_cast_revenue=critic_revenue.merge(credits.drop(['cast','crew','title'],1),left_on ="id",right_on="movie_id",how="left")
 
 model_cols = [column for column in critic_cast_revenue.columns if column not in keep_list]
 
