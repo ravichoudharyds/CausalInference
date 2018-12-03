@@ -171,9 +171,6 @@ labels = np.array(critic_revenue['Worldwide Gross'])
 critic_revenue= critic_revenue.drop('Worldwide Gross', axis = 1)
 
 
-# Convert to numpy array
-critic_revenue = np.array(critic_revenue)
-
 # Using Skicit-learn to split data into training and testing sets
 from sklearn.model_selection import train_test_split
 
@@ -189,10 +186,26 @@ rf = RandomForestRegressor(n_estimators = 1000, random_state = 42)
 rf.fit(train_features, train_labels);
 # Use the forest's predict method on the test data
 predictions = rf.predict(test_features)
-# Calculate the absolute errors
-errors = abs(predictions - test_labels)
-# Print out the mean absolute error (mae)
-print('Mean Absolute Error:', round(np.mean(errors), 2), 'degrees.')
+from sklearn import metrics
+
+print('Mean Absolute Error:', metrics.mean_absolute_error(test_labels, predictions))  
+print('Mean Squared Error:', metrics.mean_squared_error(test_labels, predictions))  
+print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(test_labels, predictions)))  
+
+# Import tools needed for visualization
+from sklearn.tree import export_graphviz
+# Pull out one tree from the forest
+tree = rf.estimators_[5]
+
+feature_list = list(critic_revenue.columns)
+
+
+# Export the image to a dot file
+export_graphviz(tree, out_file = 'tree.dot', feature_names = feature_list, rounded = True, precision = 1)
+
+# Convert to png using system command (requires Graphviz)
+#from subprocess import call #may not work on all machines
+#call(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=600'])
 
 
 #Linear Regression for Genre (note: still need to integrate with existing code as far as train/test split
