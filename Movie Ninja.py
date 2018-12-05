@@ -192,6 +192,37 @@ print('Mean Absolute Error:', metrics.mean_absolute_error(test_labels, predictio
 print('Mean Squared Error:', metrics.mean_squared_error(test_labels, predictions))  
 print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(test_labels, predictions)))  
 
+from sklearn.model_selection import RandomizedSearchCV
+# Number of trees in random forest
+n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
+
+# Maximum number of levels in tree
+max_depth = [int(x) for x in np.linspace(10, 110, num = 11)]
+max_depth.append(None)
+
+max_features = ['auto', 'sqrt']
+
+# Minimum number of samples required to split a node
+min_samples_split = [2, 5, 10]
+
+# Minimum number of samples required at each leaf node
+min_samples_leaf = [1, 2, 4]
+
+# Method of selecting samples for training each tree
+bootstrap = [True, False]
+
+# Create the random grid
+random_grid = {'n_estimators': n_estimators,
+               'max_features': max_features,
+               'max_depth': max_depth,
+               'min_samples_split': min_samples_split,
+               'min_samples_leaf': min_samples_leaf,
+               'bootstrap': bootstrap}
+print(random_grid)
+
+rf_random.best_params_
+
+
 # Import tools needed for visualization
 from sklearn.tree import export_graphviz
 # Pull out one tree from the forest
