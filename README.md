@@ -14,7 +14,7 @@ The problem with observational data is that because of the bias introduced durin
 
 Since the study is not randomized, observational study requires further investigation into the different possible reasons for the assignemnt to a particular group to eliminate the bias. These reasons are called confounders. And causal inference on observational data assumes that conditioning on the confounders, the treatment was randomly assigned. In other words, once we control for all the possible reasons that might have led to a patient recieiving or not receiving the medicine, the assignment will be random. 
 
-[Link Here] (http://www.stat.columbia.edu/~gelman/arm/chap9.pdf) from Prof. Andrew Gelman's book gives a better understanding of causal inference and its difficulties. 
+[Prof. Andrew Gelman's book](http://www.stat.columbia.edu/~gelman/arm/chap9.pdf) gives a better understanding of causal inference and its difficulties. 
 
 To get my hands dirty and gain some practical experience, I worked on a project to study if there is a cause and effect relationship between movies reviews and the revenue of the movie. For the project, I divided the data into 3 groups and separately assumed a treatment and control in each. The groups are mentioned below 
 1. Treatment: Movies with positive reviews, Control: Movies with negative reviews.
