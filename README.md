@@ -1,4 +1,4 @@
-##Causal Inference - Does Critic Ratings affect Movie's Revenue
+#Causal Inference - Does Critic Ratings affect Movie's Revenue
 
 Warning: This is based on my understanding of Causal Inference methods based on a project I did recently. Please do correct me if I am wrong somewhere. 
 
