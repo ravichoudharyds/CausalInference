@@ -1,3 +1,5 @@
+##Causal Inference - Does Critic Ratings affect Movie's Revenue
+
 Warning: This is based on my understanding of Causal Inference methods based on a project I did recently. Please do correct me if I am wrong somewhere. 
 
 Usually Causal Inference is confused with correlation. People assume that the more correlated two variables are, the more one is cause for the other. But this is a mistaken relationship since causality is an entirely different concept. Correlation can exist among two things which have no cause and effect relationship. For example there is a positive correlation between how rich a person is and how old he is, but age is not a cause of person's wealth, it's rather the experience and the inflation of the economy.   
