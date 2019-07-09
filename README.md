@@ -6,6 +6,9 @@ Causal Inference is an important topic in the field of medicine. In the field of
 1. group getting the actual medicine
 2. group getting a placebo
 
+!(medicine.jpg "Placebo and Real Medicine")
+
+
 The random assignment helps in eliminating any form of bias that the people conducting the experiments or the patients themselves might introduce. In order to properly study the effect of medicine a double blind study is done. The double blind study is a study in which neither the patients and nor the doctors know about the group that the patient is assigned to. This way the effect of the medicine can be studied in comparison to the placebo effect. Based on the size of the group receiving the medicine, the study can also help confirm if the medicine is the sole reason for the change in patient's health and that change is statistically significant. 
 
 But in most fields, there is a limitation on conducting experiments due to the expenses or non-feasibility of the experiment. As such a lot of research is going on in the development of causal inference on observational data. Observational data is data where no random assignment was followed. In observational data we see the data of patients with the group they were assigned to, and the result of the assignment to that group but we have no data on the process of assignment to groups.
