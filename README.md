@@ -19,7 +19,11 @@ Since the study is not randomized, observational study requires further investig
 
 [Prof. Andrew Gelman's book](http://www.stat.columbia.edu/~gelman/arm/chap9.pdf) gives a better understanding of causal inference and its difficulties. 
 
-To get my hands dirty and gain some practical experience, I worked on a project to study if there is a cause and effect relationship between movies reviews and the revenue of the movie. For the project, I divided the data into 3 groups and separately assumed a treatment and control in each. The groups are mentioned below 
+To get my hands dirty and gain some practical experience, I worked on a project to study if there is a cause and effect relationship between movies reviews and the revenue of the movie. 
+
+<p align="center"><img alt="Pixar Movies Revenue Vs Ratings" src="pixar.png"></p>
+
+For the project, I divided the data into 3 groups and separately assumed a treatment and control in each. The groups are mentioned below 
 1. Treatment: Movies with positive reviews, Control: Movies with negative reviews.
 2. Treatment: Movies with positive reviews, Control: Movies with neutral reviews.
 3. Treatment: Movies with neutral reviews, Control: Movies with negative reviews.
