@@ -6,7 +6,7 @@ Causal Inference is an important topic in the field of medicine. In the field of
 1. group getting the actual medicine
 2. group getting a placebo
 
-![Placebo and Real Medicine](https://github.com/ravichoudharyds/Causal_Inference/medicine.jpg)
+![Placebo and Real Medicine](medicine.jpg)
 
 
 The random assignment helps in eliminating any form of bias that the people conducting the experiments or the patients themselves might introduce. In order to properly study the effect of medicine a double blind study is done. The double blind study is a study in which neither the patients and nor the doctors know about the group that the patient is assigned to. This way the effect of the medicine can be studied in comparison to the placebo effect. Based on the size of the group receiving the medicine, the study can also help confirm if the medicine is the sole reason for the change in patient's health and that change is statistically significant. 
